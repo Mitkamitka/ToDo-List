@@ -1,0 +1,12 @@
+<aura:component>
+<aura:attribute name="tasksArr" type="Todo_List__c[]"/>
+    <lightning:card title="Tasks">
+        <lightning:layout multipleRows="true">
+            <aura:iteration items="{!v.tasksArr}" var="task">
+                <lightning:layoutItem size="4" smallDeviceSize="12" mediumDeviceSize="6">
+                    <c:taskItem task="{!task}"/>
+                </lightning:layoutItem>
+            </aura:iteration>
+        </lightning:layout>
+    </lightning:card>
+</aura:component>

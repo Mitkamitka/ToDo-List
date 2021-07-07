@@ -1,0 +1,13 @@
+<aura:component controller="TasksController">
+    <aura:attribute name="task" type="Todo_List__c"/>
+    <aura:registerEvent name='udateDoneActiveTask' type = 'c:updActiveDone'/>
+    <aura:registerEvent name='showDesc' type = 'c:showDescEvent'/>
+    <lightning:layout>
+        <ui:inputCheckbox class="checkbox" change="{!c.activeDoneChange}" value="{!v.task.Status__c == 'Active' ? false : true}"/>
+        <p class="slds-text-heading_medium slds-p-horizontal_small" label='Task name' aura:id='p'>
+            <div onclick='{!c.showDiscr}'>
+                {!v.task.Name} 
+            </div>
+        </p><br/>
+    </lightning:layout>
+</aura:component>

@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="Event template">
+    <aura:attribute name="activeDone" type = "Todo_List__c"/>
+</aura:event>

@@ -1,0 +1,40 @@
+.THIS .descr {
+    margin: 5px;
+    width: 100%;
+}
+.THIS .button {
+    background-color: rgb(173, 90, 90);
+    border: 0px;
+    margin-left: 10px;
+}
+
+.THIS .slds-text-heading_small {
+    margin-top: 10px;
+}
+
+.THIS .upploader {
+    margin-left: 30px;
+}
+
+.THIS .layoutScreens {
+    max-width: 50%;
+}
+
+.THIS .pImg {
+    cursor: zoom-in;
+    display: inline;
+}
+
+.THIS .divImg {
+    display: inline;
+}
+
+.THIS .pic {
+    width: 100px;
+    height: 60px;
+    padding: 5px;
+}
+
+.THIS .hiddenBigPic {
+    cursor: zoom-out;
+}

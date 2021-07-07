@@ -1,0 +1,50 @@
+<aura:component implements='force:appHostable'  controller="TasksController"> 
+<aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+<aura:handler name="saveNewTask" event = "c:newTaskSave" action = "{!c.updTaskList}"/>
+<aura:handler name="closeModal" event = "c:closeNewTaskModal" action = "{!c.closeModal}"/>
+<aura:handler name="udateDoneActiveTask" event = "c:updActiveDone" action = "{!c.updTaskListAfterDoneActiveChange}"/>
+<aura:handler name="showDesc" event = "c:showDescEvent" action = "{!c.highListShowDesc}"/>
+<aura:handler name='closeDesc' event = "c:closeDescrShowTaskName" action = "{!c.highDescShowList}"/>
+<aura:attribute name="dayAndDate" type ="Map"/>
+<aura:attribute name="tasks" type="Todo_List__c[]"/>
+<aura:attribute name="isPopupOpen" type="boolean" default="false"/>
+<aura:attribute name="options" type="List" default="[
+    {'label': 'All', 'value': 'All'},
+    {'label': 'Active', 'value': 'Active'},
+    {'label': 'Done', 'value': 'Done'}]"/>
+<aura:attribute name="value" type="String" default="All"/>
+<aura:attribute name="tabValStore" type = "String"/>
+<aura:attribute name="radioBtnValueStore" type = "String"/>
+<aura:attribute name="hideDescr" type = "boolean" default = "true"/>
+<aura:attribute name="task" type="Todo_List__c"/>
+<lightning:layout>
+    <lightning:layoutItem size='12'>
+        <lightning:tabset variant="vertical">
+            <aura:iteration items="{!v.dayAndDate}" var="day"  indexVar="key">
+                <lightning:tab label="{!day.key + ' - ' + day.value}" id="{!day.value}" onactive="{!c.changeTab}" aura:id = "tab">
+                    <aura:if isTrue="{!v.hideDescr}">
+                        <c:taskList tasksArr="{!v.tasks}"/>
+                        <lightning:button class='button' variant="brand" label="New" title="New task" onclick='{!c.openModal}' />
+                    
+                        <lightning:radioGroup
+                            aura:id="activeDoneRadio"
+                            label="Show:"
+                            options="{! v.options }"
+                            value="{! v.value }"
+                            onchange="{! c.radioChange }"/>
+                        
+                        <lightning:button class='button' variant="brand" label="facebook" title="facebook" onclick='{!c.getUserCred}' />
+                    
+                        <aura:if isTrue="{!v.isPopupOpen}">
+                            <c:newTask />
+                        </aura:if>
+                        <aura:set attribute="else">
+                            <c:description clickTaskDescr = "{!v.task}"/>
+                        </aura:set>
+                    </aura:if>
+                </lightning:tab>
+            </aura:iteration>
+        </lightning:tabset>
+    </lightning:layoutItem>
+</lightning:layout>     
+</aura:component>

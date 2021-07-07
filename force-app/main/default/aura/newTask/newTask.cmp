@@ -1,0 +1,58 @@
+<aura:component controller="TasksController">
+    <aura:attribute name="newTask" type="Todo_List__c" default="{ 'sobjectType': 'Todo_List__c',
+                                                                'Name': '',
+                                                                'Description__c': 'Описание отсутствует',
+                                                                'Status__c': 'Active',
+                                                                'Task_Date__c': ''}" />
+    <aura:attribute name="statuses" type="String[]" default="Active, Done"/>
+    <aura:registerEvent name = "saveNewTask" type="c:newTaskSave"/>
+    <aura:registerEvent name = "closeModal" type="c:closeNewTaskModal"/>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- Modal/Popup Box Header Starts here-->
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon iconName="utility:close"
+                                          onclick="{! c.closeModel }"
+                                          alternativeText="close"
+                                          variant="bare-inverse"
+                                          class="slds-modal__close"/>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Task</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <!--Modal/Popup Box Body Starts here-->
+                    <form class="slds-form_stacked">
+                        <lightning:input aura:id="taskform" label="Task Name"
+                                    placeholder="Name"
+                                     name="taskname"
+                                     value="{!v.newTask.Name}"
+                                     required="true"/>
+                        <lightning:select value='{!v.newTask.Status__c}'>
+                            <aura:iteration items="{!v.statuses}" var="status">
+                                <option text="{!status}"></option>
+                            </aura:iteration>
+                        </lightning:select>
+                        <lightning:input aura:id="taskform" label="Description"
+                                     name="taskdescr"
+                                     value="{!v.newTask.Description__c}"
+                                     placeholder="Descr"/>
+                        <lightning:input type="date" aura:id="taskform" label="Task Date"
+                                     name="taskdate"
+                                     required="true"
+                                     value="{!v.newTask.Task_Date__c}"/>
+                    </form>
+                </div>
+                <!--Modal/Popup Box Footer Starts here-->
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral"
+                                      label="Cancel"
+                                      title="Cancel"
+                                      onclick="{! c.closeModel }"/>
+                    <lightning:button variant="brand"
+                                      label="Save"
+                                      title="Save"
+                                      onclick="{!c.saveNewTask}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+</aura:component>

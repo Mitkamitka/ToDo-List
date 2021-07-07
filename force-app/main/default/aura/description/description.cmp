@@ -1,0 +1,45 @@
+<aura:component controller="TasksController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInitOfDesc}"/>
+    <ltng:require scripts="{!$Resource.jQuery}"/>
+    <aura:attribute name = 'clickTaskDescr' type = 'Todo_List__c'/>
+    <aura:attribute name = 'URLs' type = 'String[]'/>
+    <aura:attribute name = 'URL' type = 'String'/>
+    <aura:attribute name = 'bool' type = 'boolean' default="false"/>
+    <aura:attribute name = 'btnBool' type = 'boolean' default="false"/>
+    <aura:attribute name = 'showHideBigPic' type = 'boolean' default="false"/>
+    <aura:attribute name = 'bigPic' type = 'String'/>
+    <aura:attribute name="filetype" type="List" default="['.png', '.jpg', '.jpeg']" />
+
+    <aura:registerEvent name = "closeDesc" type="c:closeDescrShowTaskName"/>
+    <lightning:layout>
+        <lightning:layoutItem flexibility="auto" padding="around-small" class="layoutScreens">
+            <p class="slds-text-heading_medium slds-p-horizontal_medium" label='Task description'>
+                Description:
+            </p>
+            <p class="slds-text-heading_small slds-p-horizontal_small" label='Description'>
+                {!v.clickTaskDescr.Description__c}
+            </p>
+            <lightning:button class='button' variant="brand" label="Cancel" title="Cancel" onclick='{!c.closeDescr}'/>
+        </lightning:layoutItem>
+        <lightning:layoutItem flexibility="auto" padding="around-small" class="layoutScreens">
+            <p class="slds-text-heading_medium slds-p-horizontal_medium" label='Task description'>
+                Screens:
+            </p>
+
+            <aura:iteration items="{!v.URLs}" var="url">
+                <lightning:formattedRichText class="pImg" value="{!url}" onclick="{!c.showBigPic}"/>
+            </aura:iteration>
+
+            <lightning:input name="file1" type="file" label="Add screens" multiple="true" accept="image" onchange="{! c.handleFilesChange }"/>
+            <aura:if isTrue="{!v.bool}">  
+                <p>
+                    Loaded
+                </p>
+                <lightning:button variant="brand" onclick='{!c.insertNewScreen}' label="Save" title="Save" disabled="{!v.btnBool}"/>
+            </aura:if>
+        </lightning:layoutItem> 
+    </lightning:layout>
+    <aura:if isTrue="{!v.showHideBigPic}">
+        <lightning:formattedRichText value="{!v.bigPic}" onclick="{!c.hideBigPic}"/>
+    </aura:if>
+</aura:component>

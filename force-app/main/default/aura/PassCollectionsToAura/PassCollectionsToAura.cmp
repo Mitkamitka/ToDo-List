@@ -1,0 +1,25 @@
+<aura:component implements='force:appHostable'  controller="CollectionsToAura">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>  
+    <aura:attribute name="myMap" type ="Map"/>
+    <aura:attribute name="myList" type ="List"/>
+
+    <!-- List -->
+    <!-- <aura:iteration var="item" items="{!v.myList}">
+        {!item}<br/>
+    </aura:iteration> -->
+
+    <!-- Map -->
+    <aura:iteration items="{!v.myMap}" var="item" indexVar="key">
+        {!item.key} – {!item.value}<br/><br/>
+    </aura:iteration>
+
+    <lightning:tabset variant="default">
+        <aura:iteration items="{!v.myMap}" var="item" indexVar="key">
+            <!-- {!item.key} – {!item.value}<br/><br/> -->
+            <lightning:tab label="{!item.key}" onactive="{!c.doAction}" id="{!item.value}"/>
+        </aura:iteration>
+        
+        <!-- <lightning:tab onactive="{! c.handleActive }" label="Cases" id="cases" /> -->
+    </lightning:tabset>
+
+</aura:component>
